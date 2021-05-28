@@ -19,15 +19,13 @@ axios.defaults.withCredentials = true;
 const store = createStore(Reducers);
 
 ReactDOM.render(
-    <React.StrictMode>
-        <React.Fragment>
-            <Provider store={store}>
-                <Router>
-                    <App />
-                </Router>
-            </Provider>
-        </React.Fragment>
-    </React.StrictMode>,
+    <React.Fragment>
+        <Provider store={store}>
+            <Router>
+                <App />
+            </Router>
+        </Provider>
+    </React.Fragment>,
     document.getElementById('main'),
 );
 
