@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,24 +22,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 Route::post('/auth/signin', function (Request $request) {
-    if (auth()->attempt([
-        'email' => $request->email,
-        'password' => $request->password,
-    ])) {
-        return response()->json(['result' => auth()->user()]);
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+        return response()->json(['result' => Auth::user()]);
     } else {
         return response()->json(['result' => false]);
     }
 });
 
 Route::post('/auth/signout', function (Request $request) {
-    auth()->logout();
-    return response()->json(['result' => !auth()->check()]);
+    Auth::logout();
+    return response()->json(['result' => !Auth::check()]);
 });
 
 Route::post('/auth/check', function (Request $request) {
-    if (auth()->check()) {
-        return response()->json(['result' => auth()->user()]);
+    if (Auth::check()) {
+        return response()->json(['result' => Auth::user()]);
     } else {
         return response()->json(['result' => false]);
     }
