@@ -24,9 +24,9 @@ import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton'
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
 
 const Header = () => {
-    const { appTab, personData } = useSelector((state) => ({
+    const { appTab, authData } = useSelector((state) => ({
         appTab: state.app.appTab,
-        personData: state.auth.personData,
+        authData: state.auth.authData,
     }));
 
     const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Header = () => {
     };
 
     const FetchHeaderIcon = () => {
-        if (personData !== false) {
+        if (authData !== false) {
             return (
                 <React.Fragment>
                     <div style={styles.IconButton} onClick={signOut}>

@@ -1,16 +1,16 @@
 import { AUTH_SIGNIN, AUTH_SIGNOUT } from '../Constants';
 
 const initialState = {
-    personData: false,
+    authData: false,
 };
 
 function auth(state = initialState, action) {
     switch (action.type) {
         case AUTH_SIGNIN:
-            return { personData: action.state };
+            return { authData: action.state };
             break;
         case AUTH_SIGNOUT:
-            return { personData: false };
+            return { authData: false };
             break;
     }
 

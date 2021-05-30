@@ -10,7 +10,6 @@ class Group extends Model
     use HasFactory;
 
     protected $table = 'groups';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

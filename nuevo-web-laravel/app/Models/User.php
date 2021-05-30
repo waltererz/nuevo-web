@@ -13,7 +13,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $table = 'persons';
-    protected $dateFormat = 'U';
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +34,7 @@ class User extends Authenticatable
         'id',
         'deleted_at',
         'password',
-        'remember_token',
+        'remember_tokens',
     ];
 
     /**

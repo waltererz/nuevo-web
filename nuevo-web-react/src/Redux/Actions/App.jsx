@@ -1,4 +1,4 @@
-import { APP_TAB } from '../Constants';
+import { APP_INIT, APP_TAB } from '../Constants';
 
 const ReduxActionAppTab = (tab) => {
     return {
@@ -7,4 +7,11 @@ const ReduxActionAppTab = (tab) => {
     };
 };
 
-export { ReduxActionAppTab };
+const ReduxActionAppInit = () => {
+    return {
+        type: APP_INIT,
+        state: true,
+    };
+};
+
+export { ReduxActionAppInit, ReduxActionAppTab };

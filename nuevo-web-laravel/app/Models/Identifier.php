@@ -10,7 +10,6 @@ class Identifier extends Model
     use HasFactory;
 
     protected $table = 'identifiers';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

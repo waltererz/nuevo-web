@@ -10,7 +10,6 @@ class Cloud extends Model
     use HasFactory;
 
     protected $table = 'clouds';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

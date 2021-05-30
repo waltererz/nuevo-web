@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import Layout from '../Layout';
 import Theme from '../Theme';
+import { ReduxActionAppInit } from '../../Redux/Actions/App';
 import { ReduxActionSignIn } from '../../Redux/Actions/Auth';
 import { APIAuthCheck } from '../../Components/API/Auth';
 
@@ -16,24 +17,22 @@ import Clubs from '../../Routes/Clubs';
 import Advisors from '../../Routes/Advisors';
 
 const App = () => {
-    const { personData } = useSelector((state) => ({
-        personData: state.auth.personData,
+    const { init, authData } = useSelector((state) => ({
+        init: state.app.init,
+        authData: state.auth.authData,
     }));
 
     const dispatch = useDispatch();
+    const storeInit = () => dispatch(ReduxActionAppInit());
     const storeAuthData = (data) => dispatch(ReduxActionSignIn(data));
 
-    useEffect(() => {
-        APIAuthCheck().then((response) => {
-            if (personData != false) {
-                if (personData.UUID != response.UUID) {
-                    storeAuthData(response);
-                }
-            } else {
-                storeAuthData(response);
-            }
-        });
-    }, [personData]);
+    (async () => {
+        if (await APIAuthCheck()) {
+            console.log('로그인 상태입니다.');
+        } else {
+            console.log('로그아웃 상태입니다.');
+        }
+    })();
 
     return (
         <ThemeProvider theme={Theme}>

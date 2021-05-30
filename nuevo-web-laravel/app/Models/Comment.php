@@ -10,7 +10,6 @@ class Comment extends Model
     use HasFactory;
 
     protected $table = 'comments';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

@@ -20,7 +20,7 @@ class CreatePersonsTable extends Migration
             $table->bigInteger('group_id')->unsigned();
             $table->string('email', 255)->unique();
             $table->string('password', 255);
-            $table->rememberToken();
+            $table->text('remember_tokens');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('accessed_at')->nullable();
             $table->timestamps();

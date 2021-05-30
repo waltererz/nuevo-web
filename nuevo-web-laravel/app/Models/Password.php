@@ -10,7 +10,6 @@ class Password extends Model
     use HasFactory;
 
     protected $table = 'passwords';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

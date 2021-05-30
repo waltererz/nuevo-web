@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 import axios from 'axios';
 
@@ -21,9 +22,11 @@ const store = createStore(Reducers);
 ReactDOM.render(
     <React.Fragment>
         <Provider store={store}>
-            <Router>
-                <App />
-            </Router>
+            <CookiesProvider>
+                <Router>
+                    <App />
+                </Router>
+            </CookiesProvider>
         </Provider>
     </React.Fragment>,
     document.getElementById('main'),

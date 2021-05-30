@@ -10,7 +10,6 @@ class Article extends Model
     use HasFactory;
 
     protected $table = 'articles';
-    protected $dateFormat = 'U';
 
     public $timestamps = true;
 }

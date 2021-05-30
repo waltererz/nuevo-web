@@ -1,17 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { APIAuthSignIn } from '../../API/Auth';
-import { ReduxActionSignIn } from '../../../Redux/Actions/Auth';
 
 const SignInForm = (props) => {
     const { close } = props;
-
-    const dispatch = useDispatch();
-    const storeAuthData = (data) => dispatch(ReduxActionSignIn(data));
 
     const submit = () => {
         const email = document.querySelector('#signin-text-email').value;
@@ -19,7 +14,6 @@ const SignInForm = (props) => {
 
         APIAuthSignIn(email, password).then((response) => {
             if (response) {
-                storeAuthData(response);
                 window.location.href = '/';
             } else {
                 alert('아이디 또는 패스워드 오류입니다.');
