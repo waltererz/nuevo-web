@@ -23,10 +23,11 @@ import { APIAuthSignOut } from '../../API/Auth';
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
 
+import CONSTANT from '../../Common/Constants';
+
 const Header = () => {
-    const { appTab, authData } = useSelector((state) => ({
+    const { appTab } = useSelector((state) => ({
         appTab: state.app.appTab,
-        authData: state.auth.authData,
     }));
 
     const dispatch = useDispatch();
@@ -39,21 +40,15 @@ const Header = () => {
         },
     };
 
-    const signOut = () => {
-        APIAuthSignOut().then((response) => {
-            if (response) {
-                window.location.href = '/';
-            } else {
-                alert('로그아웃 실패. 관리자에게 문의하기 바랍니다.');
-            }
-        });
+    const signout = () => {
+        window.location.href = '/signout.php';
     };
 
     const FetchHeaderIcon = () => {
-        if (authData !== false) {
+        if (CONSTANT.AUTH) {
             return (
                 <React.Fragment>
-                    <div style={styles.IconButton} onClick={signOut}>
+                    <div style={styles.IconButton} onClick={signout}>
                         <IconButton color="inherit">
                             <ExitToAppIcon />
                         </IconButton>

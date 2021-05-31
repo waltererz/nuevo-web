@@ -15,12 +15,12 @@ class CreatePersonsTable extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
-            $table->uuid('UUID');
+            $table->uuid('uuid');
+            $table->string('unique_code', 255)->unique();
             $table->string('name', 100);
-            $table->bigInteger('group_id')->unsigned();
             $table->string('email', 255)->unique();
-            $table->string('password', 255);
-            $table->text('remember_tokens');
+            $table->bigInteger('group_id')->unsigned();
+            $table->text('remember_tokens')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('accessed_at')->nullable();
             $table->timestamps();

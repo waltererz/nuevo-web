@@ -11,5 +11,15 @@ class Group extends Model
 
     protected $table = 'groups';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'permissions',
+    ];
+
     public $timestamps = true;
 }

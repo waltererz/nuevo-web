@@ -18,5 +18,5 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::post('/auth/signin', [AuthController::class, 'signin']);
-Route::middleware('auth:sanctum')->post('/auth/check', [AuthController::class, 'check']);
 Route::middleware('auth:sanctum')->post('/auth/signout', [AuthController::class, 'signout']);
+Route::middleware('auth:sanctum')->post('/auth/check', [AuthController::class, 'check']);

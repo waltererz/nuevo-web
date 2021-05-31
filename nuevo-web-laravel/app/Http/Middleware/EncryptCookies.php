@@ -13,6 +13,6 @@ class EncryptCookies extends Middleware
      */
     protected $except = [
         'personal_access_token',
-        'personal_uuid',
+        'personal_unique_code',
     ];
 }

@@ -6,9 +6,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
+
+import CONSTANT from '../../Common/Constants';
 
 const Footer = () => {
     const MobileBottomNavigation = () => {
@@ -26,24 +29,51 @@ const Footer = () => {
             display = { display: 'none' };
         }
 
+        const signout = () => {
+            window.location = '/signout.php';
+        };
+
+        const FetchFooterIcon = () => {
+            if (CONSTANT.AUTH) {
+                return (
+                    <React.Fragment>
+                        <div style={style} onClick={signout}>
+                            <BottomNavigationAction
+                                showLabel={true}
+                                value={10}
+                                label="로그아웃"
+                                icon={<ExitToAppIcon />}
+                            />
+                        </div>
+                    </React.Fragment>
+                );
+            } else {
+                return (
+                    <React.Fragment>
+                        <DialogSignInFormForButton styles={style}>
+                            <BottomNavigationAction
+                                showLabel={true}
+                                value={10}
+                                label="로그인"
+                                icon={<AccountCircleIcon />}
+                            />
+                        </DialogSignInFormForButton>
+                        <DialogAssignmentFormForButton styles={style}>
+                            <BottomNavigationAction
+                                showLabel={true}
+                                value={11}
+                                label="회원가입"
+                                icon={<AssignmentIcon />}
+                            />
+                        </DialogAssignmentFormForButton>
+                    </React.Fragment>
+                );
+            }
+        };
+
         return (
             <BottomNavigation style={display}>
-                <DialogSignInFormForButton styles={style}>
-                    <BottomNavigationAction
-                        showLabel={true}
-                        value={10}
-                        label="로그인"
-                        icon={<AccountCircleIcon />}
-                    />
-                </DialogSignInFormForButton>
-                <DialogAssignmentFormForButton styles={style}>
-                    <BottomNavigationAction
-                        showLabel={true}
-                        value={11}
-                        label="회원가입"
-                        icon={<AssignmentIcon />}
-                    />
-                </DialogAssignmentFormForButton>
+                <FetchFooterIcon />
             </BottomNavigation>
         );
     };

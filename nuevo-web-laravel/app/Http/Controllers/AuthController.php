@@ -3,27 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Password;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
 
-    private $_first_key = '>KHI!cJ1h7YQGT\TWO-L';
-    private $_second_key = 'j*xwpTs-i?*M0FWoUgKP';
-    private $_method = 'aes-256-cbc';
-    private $_algo = 'sha3-512';
+    private string $_first_key = '';
+    private string $_second_key = '';
+    private string $_method = 'aes-256-cbc';
+    private string $_algo = 'sha3-512';
 
     public function __construct()
     {
+        $this->_first_key = base64_decode(env('OPENSSL_ENCRYPTION_FIRST_KEY'));
+        $this->_second_key = base64_decode(env('OPENSSL_ENCRYPTION_SECOND_KEY'));
     }
 
     public function signin(Request $request): mixed
     {
         $user = User::where('email', $request->post('email'))->first();
 
-        if (!$user || !Hash::check($request->post('password'), $user->password)) {
+        if (!$user) {
+            return $this->_json(false);
+        }
+
+        $password = Password::where('person_id', $user->id)->first();
+
+        if (!$password || !Hash::check($request->post('password'), $password->password)) {
             return $this->_json(false);
         }
 
@@ -41,19 +51,85 @@ class AuthController extends Controller
         $user->save();
 
         Cookie::queue('personal_access_token', $token, 0, null, null, false, false);
-        Cookie::queue('personal_uuid', $this->_encrypt($user->UUID));
+        Cookie::queue('personal_unique_code', $this->_encrypt($user->unique_code));
 
         return $this->_json(true);
     }
 
-    public function signout(): mixed
+    public function signout(Request $request): mixed
     {
+        if (!isset($_COOKIE['personal_unique_code'])) {
+            if ($request->post('personal_unique_code')) {
+                $unique_code = $request->post('personal_unique_code');
+            } else {
+                return $this->_json(false);
+            }
+        } else {
+            $unique_code = $_COOKIE['personal_unique_code'];
+        }
+
+        if (!isset($_COOKIE['personal_access_token'])) {
+            if ($request->post('personal_access_token')) {
+                $access_token = $request->post('personal_access_token');
+            } else {
+                return $this->_json(false);
+            }
+        } else {
+            $access_token = $_COOKIE['personal_access_token'];
+        }
+
+        $user = User::where('unique_code', $this->_decrypt($unique_code))->first();
+
+        if ($user->remember_tokens) {
+            $signout = false;
+            $new_tokens = [];
+            $remember_tokens = json_decode($user->remember_tokens);
+
+            foreach ($remember_tokens as $token) {
+                if ($token[0] == $access_token) {
+                    $signout = true;
+                    setcookie('personal_unique_code', '', time() - 3600);
+                    setcookie('personal_access_token', '', time() - 3600);
+                    break;
+                } else {
+                    if ($token[1] !== 0) {
+                        $new_tokens[] = $token;
+                    }
+                }
+            }
+
+            $user->remember_tokens = json_encode($new_tokens);
+            $user->save();
+
+            return $this->_json($signout);
+        } else {
+            return $this->_json(false);
+        }
     }
 
-    public function check(): mixed
+    public function check(Request $request): mixed
     {
-        $uuid = $this->_decrypt($_COOKIE['personal_uuid']);
-        $user = User::where('UUID', $uuid)->first();
+        if (!isset($_COOKIE['personal_unique_code'])) {
+            if ($request->post('personal_unique_code')) {
+                $unique_code = $request->post('personal_unique_code');
+            } else {
+                return $this->_json(false);
+            }
+        } else {
+            $unique_code = $_COOKIE['personal_unique_code'];
+        }
+
+        if (!isset($_COOKIE['personal_access_token'])) {
+            if ($request->post('personal_access_token')) {
+                $access_token = $request->post('personal_access_token');
+            } else {
+                return $this->_json(false);
+            }
+        } else {
+            $access_token = $_COOKIE['personal_access_token'];
+        }
+
+        $user = User::where('unique_code', $this->_decrypt($unique_code))->first();
 
         if (!$user) {
             return $this->_json(false);
@@ -64,7 +140,7 @@ class AuthController extends Controller
             $remember_tokens = json_decode($user->remember_tokens);
             $new_tokens = [];
             foreach ($remember_tokens as $token) {
-                if ($token[0] == $_COOKIE['personal_access_token']) {
+                if ($token[0] == $access_token) {
                     $new_tokens[] = $token;
                     $authorized = true;
                     break;
@@ -77,7 +153,15 @@ class AuthController extends Controller
             $user->remember_tokens = json_encode($new_tokens);
             $user->save();
 
-            return $this->_json($authorized);
+            if ($authorized) {
+                if ($request->post('return_uuid') == true) {
+                    return $this->_json($user->uuid);
+                } else {
+                    return $this->_json(true);
+                }
+            } else {
+                return $this->_json(false);
+            }
         } else {
             return $this->_json(false);
         }

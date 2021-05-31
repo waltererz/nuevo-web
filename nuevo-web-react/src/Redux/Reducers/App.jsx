@@ -1,4 +1,4 @@
-import { APP_INIT, APP_TAB } from '../Constants';
+import { APP_TAB } from '../Constants';
 
 const page = window.location.pathname;
 let initialTab = 0;
@@ -24,14 +24,11 @@ switch (page) {
 }
 
 const initialState = {
-    init: false,
     appTab: initialTab,
 };
 
 function app(state = initialState, action) {
     switch (action.type) {
-        case APP_INIT:
-            return { init: action.state };
         case APP_TAB:
             return { appTab: action.state };
     }
