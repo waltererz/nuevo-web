@@ -25,6 +25,30 @@ a {
     box-sizing: border-box;
 }
 
+.header-profile,
+.header-apps {
+    top: 52px;
+    right: 30px;
+    position: absolute;
+    z-index: 2000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+.header-profile {
+    width: 400px;
+    height: 400px;
+}
+
+.header-apps {
+    width: 500px;
+    height: 600px;
+}
+
 .root-container {
     min-height: calc(100vh - 80px);
     margin-top: 80px;
@@ -139,6 +163,14 @@ a {
 
     .header-icon-container {
         display: none;
+    }
+
+    .header-profile {
+        display: none !important;
+    }
+
+    .header-apps {
+        display: none !important;
     }
 
     .root-container {

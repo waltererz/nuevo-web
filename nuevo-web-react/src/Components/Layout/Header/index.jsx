@@ -18,19 +18,29 @@ import AppsIcon from '@material-ui/icons/Apps';
 
 import HideOnScroll from '../../Common/Functions/HideOnScroll';
 import { ReduxActionAppRoute } from '../../../Redux/Actions/App';
+import {
+    ReduxActionLayoutHeaderProfile,
+    ReduxActionLayoutHeaderApps,
+} from '../../../Redux/Actions/Layout';
 
+import HeaderProfile from './Profile';
+import HeaderApps from './Apps';
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
 
 import CONSTANT from '../../Common/Constants';
 
 const Header = () => {
-    const { route } = useSelector((state) => ({
+    const { route, headerProfile, headerApps } = useSelector((state) => ({
         route: state.app.route,
+        headerProfile: state.layout.headerProfile,
+        headerApps: state.layout.headerApps,
     }));
 
     const dispatch = useDispatch();
     const routeSelector = (event, route) => dispatch(ReduxActionAppRoute(route));
+    const toggleHeaderProfile = (event) => dispatch(ReduxActionLayoutHeaderProfile(!headerProfile));
+    const toggleHeaderApps = (event) => dispatch(ReduxActionLayoutHeaderApps(!headerApps));
 
     const styles = {
         IconButtonBox: {
@@ -43,20 +53,16 @@ const Header = () => {
         },
     };
 
-    const signout = () => {
-        window.location.href = '/signout.php';
-    };
-
     const FetchHeaderIcon = () => {
         if (CONSTANT.AUTH) {
             return (
                 <React.Fragment>
-                    <div style={styles.IconButtonBox} onClick={signout}>
+                    <div style={styles.IconButtonBox} onClick={toggleHeaderProfile}>
                         <IconButton color="inherit" style={styles.IconButtonRoot}>
                             <AccountCircleIcon />
                         </IconButton>
                     </div>
-                    <div style={styles.IconButtonBox}>
+                    <div style={styles.IconButtonBox} onClick={toggleHeaderApps}>
                         <IconButton color="inherit" style={styles.IconButtonRoot}>
                             <AppsIcon />
                         </IconButton>
@@ -76,7 +82,7 @@ const Header = () => {
                             <AssignmentIcon />
                         </IconButton>
                     </DialogAssignmentFormForButton>
-                    <div style={styles.IconButtonBox}>
+                    <div style={styles.IconButtonBox} onClick={toggleHeaderApps}>
                         <IconButton color="inherit" style={styles.IconButtonRoot}>
                             <AppsIcon />
                         </IconButton>
@@ -88,6 +94,8 @@ const Header = () => {
 
     return (
         <React.Fragment>
+            <HeaderProfile />
+            <HeaderApps />
             <HideOnScroll mediaQuery="(max-width: 1100px)">
                 <AppBar color="default" position="fixed">
                     <div style={{ flexGrow: 1 }}>
