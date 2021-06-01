@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
@@ -10,42 +10,68 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
 
-import AdbIcon from '@material-ui/icons/Adb';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import PagesIcon from '@material-ui/icons/Pages';
 import PieChartIcon from '@material-ui/icons/PieChart';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LocalActivityIcon from '@material-ui/icons/LocalActivity';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 
-import { ReduxActionAppTab } from '../../Redux/Actions/App';
+import CONSTANT from '../Common/Constants';
+import { ReduxActionAppRoute } from '../../Redux/Actions/App';
 import Header from './Header';
 import Footer from './Footer';
+
+import AssetsLeftGrid from '../../Routes/Assets/LeftGrid';
+import FriendsLeftGrid from '../../Routes/Friends/LeftGrid';
+import ClubsLeftGrid from '../../Routes/Clubs/LeftGrid';
+import AdvisorsLeftGrid from '../../Routes/Advisors/LeftGrid';
 
 import './index.css';
 
 const Layout = (props) => {
     const { children } = props;
-    const dispatch = useDispatch();
-    const tabSelector = (tab) => (event) => dispatch(ReduxActionAppTab(tab));
 
-    return (
-        <React.Fragment>
-            <Header />
-            <Container classes={{ root: 'root-container' }} maxWidth="false">
-                <Drawer
-                    classes={{
-                        root: 'container-grid-item-left',
-                        paper: 'container-grid-item-left container-grid-item-left-margin',
-                    }}
-                    variant="permanent"
-                >
+    // 다른 Drawer Paper 스타일을 정의하기 위해 필요
+    const classes = {
+        drawer: {
+            root: 'container-grid-item-left',
+        },
+    };
+
+    const { route } = useSelector((state) => ({
+        route: state.app.route,
+    }));
+
+    const dispatch = useDispatch();
+
+    const routeSelector = (route) => (event) => dispatch(ReduxActionAppRoute(route));
+
+    // HOME ROUTE의 경우에는 Left Grid 배경색 없음
+    if (route == CONSTANT.MAINROUTE.HOME) {
+        classes.drawer = {
+            paper: 'container-grid-item-left container-grid-item-left-margin',
+        };
+    } else {
+        classes.drawer = {
+            paper: 'container-grid-item-left container-grid-item-left-margin bgWhite boxShadow',
+        };
+    }
+
+    const LeftGridItems = () => {
+        switch (route) {
+            case CONSTANT.MAINROUTE.HOME:
+                return (
                     <List component="nav">
                         <ListItem button>
                             <ListItemIcon>
-                                <AdbIcon />
+                                <AccountCircleIcon />
                             </ListItemIcon>
-                            <ListItemText primary="누에보" />
+                            <ListItemText primary="사용자이름" />
                         </ListItem>
-                        <Link to="/assets" onClick={tabSelector(1)}>
+                        <Link to="/assets" onClick={routeSelector(CONSTANT.MAINROUTE.ASSETS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <PieChartIcon />
@@ -53,7 +79,7 @@ const Layout = (props) => {
                                 <ListItemText primary="자산관리" />
                             </ListItem>
                         </Link>
-                        <Link to="/friends" onClick={tabSelector(2)}>
+                        <Link to="/friends" onClick={routeSelector(CONSTANT.MAINROUTE.FRIENDS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <PeopleAltIcon />
@@ -61,7 +87,7 @@ const Layout = (props) => {
                                 <ListItemText primary="친구" />
                             </ListItem>
                         </Link>
-                        <Link to="/clubs" onClick={tabSelector(3)}>
+                        <Link to="/clubs" onClick={routeSelector(CONSTANT.MAINROUTE.CLUBS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <GroupWorkIcon />
@@ -69,7 +95,7 @@ const Layout = (props) => {
                                 <ListItemText primary="투자그룹" />
                             </ListItem>
                         </Link>
-                        <Link to="/advisors" onClick={tabSelector(4)}>
+                        <Link to="/advisors" onClick={routeSelector(CONSTANT.MAINROUTE.ADVISORS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <PagesIcon />
@@ -77,16 +103,93 @@ const Layout = (props) => {
                                 <ListItemText primary="투자어드바이저" />
                             </ListItem>
                         </Link>
+                        <Link to="/">
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <LocalActivityIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="저장됨" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/">
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <FolderSpecialIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="즐겨찾기" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/">
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <QuestionAnswerIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="메시지" />
+                            </ListItem>
+                        </Link>
                     </List>
-                </Drawer>
-                <Grid container direction="row" justify="space-between" alignItems="flex-start">
+                );
+            case CONSTANT.MAINROUTE.ASSETS:
+                return (
+                    <React.Fragment>
+                        <AssetsLeftGrid />
+                    </React.Fragment>
+                );
+            case CONSTANT.MAINROUTE.FRIENDS:
+                return (
+                    <React.Fragment>
+                        <FriendsLeftGrid />
+                    </React.Fragment>
+                );
+            case CONSTANT.MAINROUTE.CLUBS:
+                return (
+                    <React.Fragment>
+                        <ClubsLeftGrid />
+                    </React.Fragment>
+                );
+            case CONSTANT.MAINROUTE.ADVISORS:
+                return (
+                    <React.Fragment>
+                        <AdvisorsLeftGrid />
+                    </React.Fragment>
+                );
+        }
+    };
+
+    const RightGridItems = (props) => {
+        if (route == CONSTANT.MAINROUTE.HOME) {
+            return (
+                <React.Fragment>
                     <Grid item classes={{ item: 'container-grid-item-left' }}></Grid>
                     <Grid item classes={{ item: 'container-grid-item-center' }}>
-                        {children}
+                        {props.children}
                     </Grid>
                     <Grid item classes={{ item: 'container-grid-item-right' }}>
                         오른쪽 사이드
                     </Grid>
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <Grid item classes={{ item: 'container-grid-item-left' }}></Grid>
+                    <Grid item classes={{ item: 'container-grid-item-center-2' }}>
+                        {props.children}
+                    </Grid>
+                </React.Fragment>
+            );
+        }
+    };
+
+    return (
+        <React.Fragment>
+            <Header />
+            <Container classes={{ root: 'root-container' }} maxWidth="false">
+                <Drawer classes={classes.drawer} variant="permanent">
+                    <LeftGridItems />
+                </Drawer>
+                <Grid container direction="row" justify="space-between" alignItems="flex-start">
+                    <RightGridItems children={children} />
                 </Grid>
             </Container>
             <Footer />

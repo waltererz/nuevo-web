@@ -14,11 +14,10 @@ import PagesIcon from '@material-ui/icons/Pages';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AppsIcon from '@material-ui/icons/Apps';
 
 import HideOnScroll from '../../Common/Functions/HideOnScroll';
-import { ReduxActionAppTab } from '../../../Redux/Actions/App';
-import { APIAuthSignOut } from '../../API/Auth';
+import { ReduxActionAppRoute } from '../../../Redux/Actions/App';
 
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
@@ -26,17 +25,21 @@ import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormFo
 import CONSTANT from '../../Common/Constants';
 
 const Header = () => {
-    const { appTab } = useSelector((state) => ({
-        appTab: state.app.appTab,
+    const { route } = useSelector((state) => ({
+        route: state.app.route,
     }));
 
     const dispatch = useDispatch();
-    const tabSelector = (event, tab) => dispatch(ReduxActionAppTab(tab));
+    const routeSelector = (event, route) => dispatch(ReduxActionAppRoute(route));
 
     const styles = {
-        IconButton: {
+        IconButtonBox: {
             display: 'inline-block',
-            marginRight: '10px',
+            marginRight: '15px',
+        },
+        IconButtonRoot: {
+            backgroundColor: '#efefef',
+            padding: '9px',
         },
     };
 
@@ -48,9 +51,14 @@ const Header = () => {
         if (CONSTANT.AUTH) {
             return (
                 <React.Fragment>
-                    <div style={styles.IconButton} onClick={signout}>
-                        <IconButton color="inherit">
-                            <ExitToAppIcon />
+                    <div style={styles.IconButtonBox} onClick={signout}>
+                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                            <AccountCircleIcon />
+                        </IconButton>
+                    </div>
+                    <div style={styles.IconButtonBox}>
+                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                            <AppsIcon />
                         </IconButton>
                     </div>
                 </React.Fragment>
@@ -58,16 +66,21 @@ const Header = () => {
         } else {
             return (
                 <React.Fragment>
-                    <DialogSignInFormForButton styles={styles.IconButton}>
-                        <IconButton color="inherit">
+                    <DialogSignInFormForButton styles={styles.IconButtonBox}>
+                        <IconButton color="inherit" style={styles.IconButtonRoot}>
                             <AccountCircleIcon />
                         </IconButton>
                     </DialogSignInFormForButton>
-                    <DialogAssignmentFormForButton styles={styles.IconButton}>
-                        <IconButton color="inherit">
+                    <DialogAssignmentFormForButton styles={styles.IconButtonBox}>
+                        <IconButton color="inherit" style={styles.IconButtonRoot}>
                             <AssignmentIcon />
                         </IconButton>
                     </DialogAssignmentFormForButton>
+                    <div style={styles.IconButtonBox}>
+                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                            <AppsIcon />
+                        </IconButton>
+                    </div>
                 </React.Fragment>
             );
         }
@@ -80,16 +93,41 @@ const Header = () => {
                     <div style={{ flexGrow: 1 }}>
                         <Tabs
                             centered={true}
-                            value={appTab}
-                            onChange={tabSelector}
+                            value={route}
+                            onChange={routeSelector}
                             indicatorColor="primary"
                             textColor="primary"
                         >
-                            <Tab icon={<HomeIcon />} component={Link} to="/" />
-                            <Tab icon={<PieChartIcon />} component={Link} to="/assets" />
-                            <Tab icon={<PeopleAltIcon />} component={Link} to="/friends" />
-                            <Tab icon={<GroupWorkIcon />} component={Link} to="/clubs" />
-                            <Tab icon={<PagesIcon />} component={Link} to="/advisors" />
+                            <Tab
+                                icon={<HomeIcon />}
+                                value={CONSTANT.MAINROUTE.HOME}
+                                component={Link}
+                                to="/"
+                            />
+                            <Tab
+                                icon={<PieChartIcon />}
+                                value={CONSTANT.MAINROUTE.ASSETS}
+                                component={Link}
+                                to="/assets"
+                            />
+                            <Tab
+                                icon={<PeopleAltIcon />}
+                                value={CONSTANT.MAINROUTE.FRIENDS}
+                                component={Link}
+                                to="/friends"
+                            />
+                            <Tab
+                                icon={<GroupWorkIcon />}
+                                value={CONSTANT.MAINROUTE.CLUBS}
+                                component={Link}
+                                to="/clubs"
+                            />
+                            <Tab
+                                icon={<PagesIcon />}
+                                value={CONSTANT.MAINROUTE.ADVISORS}
+                                component={Link}
+                                to="/advisors"
+                            />
                         </Tabs>
                     </div>
                     <div className="header-icon-container">

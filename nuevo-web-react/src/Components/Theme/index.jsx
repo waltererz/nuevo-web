@@ -35,6 +35,8 @@ const Theme = createMuiTheme({
         MuiListItem: {
             root: {
                 borderRadius: '5px',
+                paddingTop: '10px',
+                paddingBottom: '10px',
             },
         },
         MuiGrid: {
@@ -52,6 +54,11 @@ const Theme = createMuiTheme({
             flexContainer: {
                 height: '100%',
             },
+            centered: {
+                '@media (max-width: 700px)': {
+                    justifyContent: 'space-between',
+                },
+            },
         },
         MuiTab: {
             root: {
@@ -61,18 +68,20 @@ const Theme = createMuiTheme({
                 '@media (max-width: 1100px)': {
                     minHeight: '50px',
                 },
-                '@media (max-width: 900px)': {
+                '@media (max-width: 700px)': {
                     minWidth: '75px',
-                    width: 'calc(120px - (876px - 100%))',
+                    width: 'calc(120px - (660px - 100%))',
                 },
             },
         },
         MuiDrawer: {
             paper: {
+                height: 'calc(100% - 56px)',
                 top: '56px',
                 boxSizing: 'border-box',
                 padding: '15px',
                 backgroundColor: 'initial',
+                zIndex: 1000,
             },
             paperAnchorDockedLeft: {
                 borderRight: '0px',
@@ -85,14 +94,13 @@ const Theme = createMuiTheme({
                 bottom: 0,
                 left: 'auto',
                 right: 0,
-                backgroundColor: '#ffffff',
-                boxShadow: '0px 0px 4px -2px rgba(0, 0, 0, .1)',
-                borderTop: '1px solid #eeeeee',
+                backgroundColor: '#000000',
+                boxShadow: '0px 0px 4px 1px rgba(0, 0, 0, .3)',
             },
         },
         MuiBottomNavigationAction: {
             root: {
-                color: '#666',
+                color: '#cccccc',
                 padding: '8px 12px',
             },
         },

@@ -1,10 +1,10 @@
-import { APP_TAB } from '../Constants';
+import { APP_ROUTE } from '../Constants';
 
-const ReduxActionAppTab = (tab) => {
+const ReduxActionAppRoute = (route) => {
     return {
-        type: APP_TAB,
-        state: tab,
+        type: APP_ROUTE,
+        state: route,
     };
 };
 
-export { ReduxActionAppTab };
+export { ReduxActionAppRoute };

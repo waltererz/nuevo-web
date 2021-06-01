@@ -1,1 +1,1 @@
-export const APP_TAB = 'APP_TAB';
+export const APP_ROUTE = 'APP_ROUTE';

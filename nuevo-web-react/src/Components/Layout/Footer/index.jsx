@@ -6,7 +6,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AppsIcon from '@material-ui/icons/Apps';
+import CreateIcon from '@material-ui/icons/Create';
 
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
@@ -37,12 +38,28 @@ const Footer = () => {
             if (CONSTANT.AUTH) {
                 return (
                     <React.Fragment>
-                        <div style={style} onClick={signout}>
+                        <div style={style}>
                             <BottomNavigationAction
-                                showLabel={true}
-                                value={10}
-                                label="로그아웃"
-                                icon={<ExitToAppIcon />}
+                                showLabel={false}
+                                value={100}
+                                label="전체메뉴"
+                                icon={<AppsIcon />}
+                            />
+                        </div>
+                        <div style={style}>
+                            <BottomNavigationAction
+                                showLabel={false}
+                                value={102}
+                                label="클라우드 쓰기"
+                                icon={<CreateIcon />}
+                            />
+                        </div>
+                        <div style={style}>
+                            <BottomNavigationAction
+                                showLabel={false}
+                                value={101}
+                                label="계정"
+                                icon={<AccountCircleIcon />}
                             />
                         </div>
                     </React.Fragment>
@@ -50,18 +67,26 @@ const Footer = () => {
             } else {
                 return (
                     <React.Fragment>
+                        <div style={style}>
+                            <BottomNavigationAction
+                                showLabel={false}
+                                value={100}
+                                label="전체메뉴"
+                                icon={<AppsIcon />}
+                            />
+                        </div>
                         <DialogSignInFormForButton styles={style}>
                             <BottomNavigationAction
-                                showLabel={true}
-                                value={10}
+                                showLabel={false}
+                                value={101}
                                 label="로그인"
                                 icon={<AccountCircleIcon />}
                             />
                         </DialogSignInFormForButton>
                         <DialogAssignmentFormForButton styles={style}>
                             <BottomNavigationAction
-                                showLabel={true}
-                                value={11}
+                                showLabel={false}
+                                value={102}
                                 label="회원가입"
                                 icon={<AssignmentIcon />}
                             />
@@ -80,7 +105,6 @@ const Footer = () => {
 
     return (
         <React.Fragment>
-            <footer>누에보 프로젝트는 세상 모든 것에 투자하는 플랫폼을 만듭니다.</footer>
             <MobileBottomNavigation />
         </React.Fragment>
     );
