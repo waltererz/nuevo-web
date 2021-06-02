@@ -33,9 +33,27 @@ a {
     z-index: 2000;
     border-radius: 10px;
     background-color: #ffffff;
-    padding: 15px;
     box-sizing: border-box;
     box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header-profile {
+    padding: 7px;
+}
+
+.header-apps {
+    padding: 7px;
+}
+
+.header-apps .apps-title {
+    padding: 5px 8px 0px 8px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.header-apps .apps-content {
+    padding: 0px 8px 8px 8px;
     font-size: 0.8rem;
 }
 

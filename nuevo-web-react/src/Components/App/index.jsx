@@ -11,8 +11,6 @@ import Friends from '../../Routes/Friends';
 import Clubs from '../../Routes/Clubs';
 import Advisors from '../../Routes/Advisors';
 
-import { APIAuthCheck, APIAuthSignOut } from '../API/Auth';
-
 const App = () => {
     return (
         <ThemeProvider theme={Theme}>

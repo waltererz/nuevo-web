@@ -1,10 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import CONSTANT from '../../Components/Common/Constants';
+import { ReduxActionAppRoute } from '../../Redux/Actions/App';
 import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
 
 const Home = () => {
+    const { route } = useSelector((state) => ({
+        route: state.app.route,
+    }));
+
+    const dispatch = useDispatch();
+    const routeSelector = () => dispatch(ReduxActionAppRoute(CONSTANT.MAINROUTE.HOME));
+
+    if (route != CONSTANT.MAINROUTE.HOME) {
+        routeSelector();
+    }
+
     ReplaceTitle('첫 페이지');
+
     return (
         <React.Fragment>
             <div className="root-container-content">
