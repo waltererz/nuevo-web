@@ -1,30 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
+import ClickAwayListener from 'react-click-away-listener';
 
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Fade from '@material-ui/core/Fade';
 
 import Apps from '../../Common/Apps';
 import { ReduxActionLayoutHeaderApps } from '../../../Redux/Actions/Layout';
-import { ReduxActionEventHeaderAppsClicked } from '../../../Redux/Actions/Event';
 
 const HeaderApps = () => {
-    const { headerApps, headerAppsClicked } = useSelector((state) => ({
+    const { headerApps } = useSelector((state) => ({
         headerApps: state.layout.headerApps,
-        headerAppsClicked: state.event.headerAppsClicked,
     }));
 
     const dispatch = useDispatch();
     const closeHeaderApps = () => dispatch(ReduxActionLayoutHeaderApps(false));
-    const toggleHeaderAppsClicked = (state) => dispatch(ReduxActionEventHeaderAppsClicked(state));
 
     const handleClickAway = () => {
         if (headerApps) {
-            if (headerAppsClicked) {
-                closeHeaderApps();
-                toggleHeaderAppsClicked(false);
-            } else {
-                toggleHeaderAppsClicked(true);
-            }
+            closeHeaderApps();
         }
     };
 

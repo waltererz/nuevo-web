@@ -1,7 +1,11 @@
 import React from 'react';
 
 const FriendsLeftGrid = () => {
-    return <React.Fragment>친구관리 좌측메뉴</React.Fragment>;
+    return (
+        <React.Fragment>
+            <div className="container-grid-item-left-title">친구</div>
+        </React.Fragment>
+    );
 };
 
 export default FriendsLeftGrid;

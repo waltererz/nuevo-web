@@ -1,7 +1,11 @@
 import React from 'react';
 
 const ClubsLeftGrid = () => {
-    return <React.Fragment>투자클럽 좌측메뉴</React.Fragment>;
+    return (
+        <React.Fragment>
+            <div className="container-grid-item-left-title">투자클럽</div>
+        </React.Fragment>
+    );
 };
 
 export default ClubsLeftGrid;

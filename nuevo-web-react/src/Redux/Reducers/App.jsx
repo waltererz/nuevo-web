@@ -1,32 +1,29 @@
 import CONSTANT from '../../Components/Common/Constants';
 import { APP_ROUTE } from '../Constants';
 
-// 현재 접속한 최초의 페이지를 저장하는 변수
-// 이 변수의 값에 따라 초기 탭 선택지를 결정할 수 있음
-let currentPage = 0;
+const path = window.location.pathname;
+let route = 0;
 
-// 자바스크립트의 window 객체에서 현재 경로를 받아옴
-// 브라우저의 현재 경로에 따라 초기값을 지정함
-switch (window.location.pathname) {
-    case '/':
-        currentPage = CONSTANT.MAINROUTE.HOME;
+switch (true) {
+    case /\//.test(path):
+        route = CONSTANT.MAINROUTE.HOME;
         break;
-    case '/assets':
-        currentPage = CONSTANT.MAINROUTE.ASSETS;
+    case /^\/assets((\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]+)*)$/g.test(path):
+        route = CONSTANT.MAINROUTE.ASSETS;
         break;
-    case '/friends':
-        currentPage = CONSTANT.MAINROUTE.FRIENDS;
+    case /^\/friends((\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]+)*)$/g.test(path):
+        route = CONSTANT.MAINROUTE.FRIENDS;
         break;
-    case '/clubs':
-        currentPage = CONSTANT.MAINROUTE.CLUBS;
+    case /^\/clubs((\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]+)*)$/g.test(path):
+        route = CONSTANT.MAINROUTE.CLUBS;
         break;
-    case '/advisors':
-        currentPage = CONSTANT.MAINROUTE.ADVISORS;
+    case /^\/advisors((\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]+)*)$/g.test(path):
+        route = CONSTANT.MAINROUTE.ADVISORS;
         break;
 }
 
 const initialState = {
-    route: currentPage,
+    route: route,
 };
 
 function app(state = initialState, action) {

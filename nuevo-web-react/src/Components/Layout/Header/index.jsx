@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import IconButton from '@material-ui/core/IconButton';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Avatar from '@material-ui/core/Avatar';
 
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
@@ -23,10 +23,11 @@ import {
     ReduxActionLayoutHeaderApps,
 } from '../../../Redux/Actions/Layout';
 
-import HeaderProfile from './Profile';
-import HeaderApps from './Apps';
 import DialogSignInFormForButton from '../../Common/Dialogs/SignInFormForButton';
 import DialogAssignmentFormForButton from '../../Common/Dialogs/AssignmentFormForButton';
+
+import HeaderApps from './Apps';
+import HeaderProfile from './Profile';
 
 import CONSTANT from '../../Common/Constants';
 
@@ -43,13 +44,14 @@ const Header = () => {
     const toggleHeaderApps = (event) => dispatch(ReduxActionLayoutHeaderApps(!headerApps));
 
     const styles = {
-        IconButtonBox: {
+        AvatarBox: {
             display: 'inline-block',
             marginRight: '15px',
+            cursor: 'pointer',
         },
-        IconButtonRoot: {
-            backgroundColor: '#efefef',
-            padding: '9px',
+        Avatar: {
+            backgroundColor: '#ececec',
+            color: '#000000',
         },
     };
 
@@ -57,35 +59,35 @@ const Header = () => {
         if (CONSTANT.AUTH) {
             return (
                 <React.Fragment>
-                    <div style={styles.IconButtonBox} onClick={toggleHeaderProfile}>
-                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                    <div style={styles.AvatarBox}>
+                        <Avatar style={styles.Avatar} onClick={toggleHeaderProfile}>
                             <AccountCircleIcon />
-                        </IconButton>
+                        </Avatar>
                     </div>
-                    <div style={styles.IconButtonBox} onClick={toggleHeaderApps}>
-                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                    <div style={styles.AvatarBox}>
+                        <Avatar style={styles.Avatar} onClick={toggleHeaderApps}>
                             <AppsIcon />
-                        </IconButton>
+                        </Avatar>
                     </div>
                 </React.Fragment>
             );
         } else {
             return (
                 <React.Fragment>
-                    <DialogSignInFormForButton styles={styles.IconButtonBox}>
-                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                    <DialogSignInFormForButton styles={styles.AvatarBox}>
+                        <Avatar style={styles.Avatar}>
                             <AccountCircleIcon />
-                        </IconButton>
+                        </Avatar>
                     </DialogSignInFormForButton>
-                    <DialogAssignmentFormForButton styles={styles.IconButtonBox}>
-                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                    <DialogAssignmentFormForButton styles={styles.AvatarBox}>
+                        <Avatar style={styles.Avatar}>
                             <AssignmentIcon />
-                        </IconButton>
+                        </Avatar>
                     </DialogAssignmentFormForButton>
-                    <div style={styles.IconButtonBox} onClick={toggleHeaderApps}>
-                        <IconButton color="inherit" style={styles.IconButtonRoot}>
+                    <div style={styles.AvatarBox}>
+                        <Avatar style={styles.Avatar} onClick={toggleHeaderApps}>
                             <AppsIcon />
-                        </IconButton>
+                        </Avatar>
                     </div>
                 </React.Fragment>
             );
@@ -94,8 +96,6 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            <HeaderProfile />
-            <HeaderApps />
             <HideOnScroll mediaQuery="(max-width: 1100px)">
                 <AppBar color="default" position="fixed">
                     <div style={{ flexGrow: 1 }}>
@@ -143,6 +143,8 @@ const Header = () => {
                     </div>
                 </AppBar>
             </HideOnScroll>
+            <HeaderApps />
+            <HeaderProfile />
         </React.Fragment>
     );
 };

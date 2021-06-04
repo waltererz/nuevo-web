@@ -1,9 +1,11 @@
-import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CONSTANT from '../../Components/Common/Constants';
 import { ReduxActionAppRoute } from '../../Redux/Actions/App';
-import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
+
+import Home from './Home';
+import Search from './Search';
 
 const Advisors = () => {
     const { route } = useSelector((state) => ({
@@ -17,14 +19,11 @@ const Advisors = () => {
         routeSelector();
     }
 
-    ReplaceTitle('투자어드바이저');
-
     return (
-        <React.Fragment>
-            <div className="root-container-content">
-                전문 투자정보를 확인할 수 있는 페이지입니다.
-            </div>
-        </React.Fragment>
+        <Switch>
+            <Route exact path="/advisors" component={Home} />
+            <Route path="/advisors/search" component={Search} />
+        </Switch>
     );
 };
 

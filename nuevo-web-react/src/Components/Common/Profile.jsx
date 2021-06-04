@@ -17,8 +17,8 @@ const Profile = () => {
             paddingRight: '7px',
         },
         Avatar: {
-            backgroundColor: '#ececec',
-            color: '#000000',
+            backgroundColor: '#3f51b5',
+            color: '#ffffff',
         },
         SVGIcon: {
             fontSize: '1.4rem',

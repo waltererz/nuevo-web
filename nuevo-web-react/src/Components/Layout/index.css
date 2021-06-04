@@ -29,7 +29,7 @@ a {
 .header-apps {
     top: 52px;
     right: 30px;
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     border-radius: 10px;
     background-color: #ffffff;
@@ -77,6 +77,12 @@ a {
     background-color: #fff;
     padding: 15px;
     font-size: 0.9rem;
+}
+
+.container-grid-item-left-title {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 #dialog-signin-form .item,

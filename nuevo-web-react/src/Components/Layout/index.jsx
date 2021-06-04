@@ -10,6 +10,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 import HomeLeftGrid from '../../Routes/Home/LeftGrid';
+import HomeRightGrid from '../../Routes/Home/RightGrid';
 import AssetsLeftGrid from '../../Routes/Assets/LeftGrid';
 import FriendsLeftGrid from '../../Routes/Friends/LeftGrid';
 import ClubsLeftGrid from '../../Routes/Clubs/LeftGrid';
@@ -23,14 +24,12 @@ const Layout = (props) => {
         route: state.app.route,
     }));
 
-    // 다른 Drawer Paper 스타일을 정의하기 위해 필요
     const classes = {
         drawer: {
             root: 'container-grid-item-left',
         },
     };
 
-    // HOME ROUTE의 경우에는 Left Grid 배경색 없음
     if (route == CONSTANT.MAINROUTE.HOME) {
         classes.drawer = {
             paper: 'container-grid-item-left container-grid-item-left-margin',
@@ -85,7 +84,7 @@ const Layout = (props) => {
                         {props.children}
                     </Grid>
                     <Grid item classes={{ item: 'container-grid-item-right' }}>
-                        오른쪽 사이드
+                        <HomeRightGrid />
                     </Grid>
                 </React.Fragment>
             );

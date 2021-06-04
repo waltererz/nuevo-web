@@ -1,9 +1,10 @@
-import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CONSTANT from '../../Components/Common/Constants';
 import { ReduxActionAppRoute } from '../../Redux/Actions/App';
-import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
+
+import Home from './Home';
 
 const Friends = () => {
     const { route } = useSelector((state) => ({
@@ -17,14 +18,10 @@ const Friends = () => {
         routeSelector();
     }
 
-    ReplaceTitle('투자친구');
-
     return (
-        <React.Fragment>
-            <div className="root-container-content">
-                친구들과 함께 재미있는 투자활동을 시작하세요.
-            </div>
-        </React.Fragment>
+        <Switch>
+            <Route exact path="/friends" component={Home} />
+        </Switch>
     );
 };
 

@@ -1,7 +1,11 @@
 import React from 'react';
 
 const AssetsLeftGrid = () => {
-    return <React.Fragment>자산관리 좌측메뉴</React.Fragment>;
+    return (
+        <React.Fragment>
+            <div className="container-grid-item-left-title">자산관리</div>
+        </React.Fragment>
+    );
 };
 
 export default AssetsLeftGrid;

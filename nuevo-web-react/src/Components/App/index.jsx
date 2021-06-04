@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -15,11 +15,13 @@ const App = () => {
     return (
         <ThemeProvider theme={Theme}>
             <Layout>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/assets" component={Assets} />
-                <Route exact path="/friends" component={Friends} />
-                <Route exact path="/clubs" component={Clubs} />
-                <Route exact path="/advisors" component={Advisors} />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/assets" component={Assets} />
+                    <Route path="/friends" component={Friends} />
+                    <Route path="/clubs" component={Clubs} />
+                    <Route path="/advisors" component={Advisors} />
+                </Switch>
             </Layout>
         </ThemeProvider>
     );

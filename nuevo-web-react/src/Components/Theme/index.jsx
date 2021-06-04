@@ -38,6 +38,10 @@ const Theme = createMuiTheme({
                 paddingTop: '10px',
                 paddingBottom: '10px',
             },
+            gutters: {
+                paddingLeft: '10px',
+                paddingRight: '10px',
+            },
         },
         MuiGrid: {
             item: {

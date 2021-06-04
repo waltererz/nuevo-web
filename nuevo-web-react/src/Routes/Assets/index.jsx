@@ -1,9 +1,10 @@
-import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CONSTANT from '../../Components/Common/Constants';
 import { ReduxActionAppRoute } from '../../Redux/Actions/App';
-import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
+
+import Home from './Home';
 
 const Assets = () => {
     const { route } = useSelector((state) => ({
@@ -17,12 +18,10 @@ const Assets = () => {
         routeSelector();
     }
 
-    ReplaceTitle('투자자산관리');
-
     return (
-        <React.Fragment>
-            <div className="root-container-content">자신의 투자자산을 효율적으로 관리하세요.</div>
-        </React.Fragment>
+        <Switch>
+            <Route exact path="/assets" component={Home} />
+        </Switch>
     );
 };
 
