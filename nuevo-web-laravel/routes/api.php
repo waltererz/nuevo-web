@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdvisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +19,5 @@ use App\Http\Controllers\AuthController;
 Route::post('/auth/signin', [AuthController::class, 'signin']);
 Route::middleware('auth:sanctum')->post('/auth/signout', [AuthController::class, 'signout']);
 Route::middleware('auth:sanctum')->post('/auth/check', [AuthController::class, 'check']);
+
+Route::middleware('auth:sanctum')->post('/advisor/list', [AdvisorController::class, 'list']);

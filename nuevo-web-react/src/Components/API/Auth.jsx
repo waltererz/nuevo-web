@@ -79,40 +79,4 @@ const APIAuthCheck = async () => {
     return response;
 };
 
-const APIAuthSignOut = async () => {
-    /*
-    const [cookies] = useCookies();
-    const response = await axios
-        .get('http://back.dev.erzsphilos.com/sanctum/csrf-cookie')
-        .then(async () => {
-            if (!cookies.personal_access_token) {
-                return false;
-            }
-            let signout = await axios
-                .post(
-                    'http://back.dev.erzsphilos.com/api/auth/signout',
-                    {},
-                    {
-                        headers: {
-                            'Content-type': 'application/json',
-                            Authorization: 'Bearer ' + cookies.personal_access_token,
-                        },
-                    },
-                )
-                .then((response) => {
-                    if (response.data) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                })
-                .catch(() => {
-                    return false;
-                });
-            return signout;
-        });
-    return response;
-    */
-};
-
-export { APIAuthSignIn, APIAuthSignOut, APIAuthCheck };
+export { APIAuthSignIn, APIAuthCheck };

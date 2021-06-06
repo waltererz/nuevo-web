@@ -23,7 +23,7 @@ class AuthController extends Controller
         $this->_second_key = base64_decode(env('OPENSSL_ENCRYPTION_SECOND_KEY'));
     }
 
-    public function signin(Request $request): mixed
+    public function signin(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = User::where('email', $request->post('email'))->first();
 
@@ -56,7 +56,7 @@ class AuthController extends Controller
         return $this->_json(true);
     }
 
-    public function signout(Request $request): mixed
+    public function signout(Request $request): \Illuminate\Http\JsonResponse
     {
         if (!isset($_COOKIE['personal_unique_code'])) {
             if ($request->post('personal_unique_code')) {
@@ -107,7 +107,7 @@ class AuthController extends Controller
         }
     }
 
-    public function check(Request $request): mixed
+    public function check(Request $request): \Illuminate\Http\JsonResponse
     {
         if (!isset($_COOKIE['personal_unique_code'])) {
             if ($request->post('personal_unique_code')) {
@@ -167,11 +167,6 @@ class AuthController extends Controller
         }
     }
 
-    private function _json(mixed $data = [], int $status = 200)
-    {
-        return response()->json($data, $status);
-    }
-
     private function _encrypt(string $string): string
     {
         $iv_length = openssl_cipher_iv_length($this->_method);
@@ -195,5 +190,10 @@ class AuthController extends Controller
             return $decrypted;
         }
         return '';
+    }
+
+    private function _json(mixed $data = [], int $status = 200)
+    {
+        return response()->json($data, $status);
     }
 }

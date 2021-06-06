@@ -1,101 +1,85 @@
 import React from 'react';
 
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
 
 import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
 
 const Search = () => {
     ReplaceTitle('나에게 맞는 투자전문가 찾기');
 
-    const themes = ['배당중점', '성장중점', '가치중점'];
+    const [state, setState] = React.useState({
+        checkedGrowth: true,
+        checkedDividend: true,
+        checkedValue: true,
+        checkedTech: true,
+    });
 
-    const [theme, setTheme] = React.useState([]);
-
-    const handleTheme = (event) => {
-        setTheme(event.target.value);
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
     };
+
+    const BlueCheckbox = withStyles({
+        root: {
+            color: '#3f51b5',
+            '&$checked': {
+                color: '#212f80',
+            },
+        },
+        checked: {},
+    })((props) => <Checkbox color="default" {...props} />);
 
     return (
         <React.Fragment>
             <div className="root-container-content">
                 <div>
-                    <FormControl>
-                        <InputLabel id="theme-label">투자성향</InputLabel>
-                        <Select
-                            multiple
-                            labelId="theme-label"
-                            id="theme"
-                            value={theme}
-                            onChange={handleTheme}
-                            input={<Input id="select-theme" />}
-                            renderValue={(selected) => (
-                                <div>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </div>
-                            )}
-                        >
-                            {themes.map((theme) => (
-                                <MenuItem key={theme} value={theme}>
-                                    {theme}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel id="theme-label">투자성향</InputLabel>
-                        <Select
-                            multiple
-                            labelId="theme-label"
-                            id="theme"
-                            value={theme}
-                            onChange={handleTheme}
-                            input={<Input id="select-theme" />}
-                            renderValue={(selected) => (
-                                <div>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </div>
-                            )}
-                        >
-                            {themes.map((theme) => (
-                                <MenuItem key={theme} value={theme}>
-                                    {theme}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel id="theme-label">투자성향</InputLabel>
-                        <Select
-                            multiple
-                            labelId="theme-label"
-                            id="theme"
-                            value={theme}
-                            onChange={handleTheme}
-                            input={<Input id="select-theme" />}
-                            renderValue={(selected) => (
-                                <div>
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </div>
-                            )}
-                        >
-                            {themes.map((theme) => (
-                                <MenuItem key={theme} value={theme}>
-                                    {theme}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '5px' }}>
+                        투자성향
+                    </div>
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <BlueCheckbox
+                                    checked={state.checkedGrowth}
+                                    onChange={handleChange}
+                                    name="checkedGrowth"
+                                />
+                            }
+                            label={<span style={{ fontSize: '0.9rem' }}>성장주</span>}
+                        />
+                        <FormControlLabel
+                            control={
+                                <BlueCheckbox
+                                    checked={state.checkedDividend}
+                                    onChange={handleChange}
+                                    name="checkedDividend"
+                                />
+                            }
+                            label={<span style={{ fontSize: '0.9rem' }}>배당주</span>}
+                        />
+                        <FormControlLabel
+                            control={
+                                <BlueCheckbox
+                                    checked={state.checkedValue}
+                                    onChange={handleChange}
+                                    name="checkedValue"
+                                />
+                            }
+                            label={<span style={{ fontSize: '0.9rem' }}>가치주</span>}
+                        />
+                        <FormControlLabel
+                            control={
+                                <BlueCheckbox
+                                    checked={state.checkedTech}
+                                    onChange={handleChange}
+                                    name="checkedTech"
+                                />
+                            }
+                            label={<span style={{ fontSize: '0.9rem' }}>기술주</span>}
+                        />
+                    </FormGroup>
                 </div>
             </div>
         </React.Fragment>
