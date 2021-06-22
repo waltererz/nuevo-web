@@ -13,10 +13,14 @@ import reportWebVitals from './reportWebVitals';
 import App from './Components/App';
 import Reducers from './Redux/Reducers';
 
+// 백엔드 서버와 통신하기 위한 axios 라이브러리 설정
+// 토큰을 사용하며, 인증된 클라이언트만 접근 가능
 axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
 axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 axios.defaults.withCredentials = true;
 
+// 리액트 스트립트에서 사용할 리덕스 스토어
+// 리덕스 관련 내용은 /Redux 디렉토리에서 수정 가능함
 const store = createStore(Reducers);
 
 ReactDOM.render(

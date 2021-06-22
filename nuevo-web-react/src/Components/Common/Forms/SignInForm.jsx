@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 
 import { APIAuthSignIn } from '../../API/Auth';
 
+// 로그인 양식
+// 이 양식이 사이트 전체에서 사용됨 (다이얼로그, 싱글페이지)
+// 필요한 경우 이 스크립트를 참고하여 추가적인 로그인 양식을 작성해도 됨
 const SignInForm = (props) => {
     const { close } = props;
 

@@ -6,19 +6,30 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
 import ReplaceTitle from '../../Components/Common/Functions/ReplaceTitle';
+import { APIAdvisorList } from '../../Components/API/Advisor';
 
 const Search = () => {
     ReplaceTitle('나에게 맞는 투자전문가 찾기');
 
     const [state, setState] = React.useState({
-        checkedGrowth: true,
-        checkedDividend: true,
-        checkedValue: true,
-        checkedTech: true,
+        theme: {
+            growth: true,
+            dividend: true,
+            value: true,
+            tech: true,
+        },
+        data: [],
     });
 
     const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
+        const checked = event.target.checked;
+        APIAdvisorList().then((response) => {
+            setState({
+                ...state,
+                theme: { ...state.theme, [event.target.name]: checked },
+                data: response,
+            });
+        });
     };
 
     const BlueCheckbox = withStyles({
@@ -42,9 +53,9 @@ const Search = () => {
                         <FormControlLabel
                             control={
                                 <BlueCheckbox
-                                    checked={state.checkedGrowth}
+                                    checked={state.theme.growth}
                                     onChange={handleChange}
-                                    name="checkedGrowth"
+                                    name="growth"
                                 />
                             }
                             label={<span style={{ fontSize: '0.9rem' }}>성장주</span>}
@@ -52,9 +63,9 @@ const Search = () => {
                         <FormControlLabel
                             control={
                                 <BlueCheckbox
-                                    checked={state.checkedDividend}
+                                    checked={state.theme.dividend}
                                     onChange={handleChange}
-                                    name="checkedDividend"
+                                    name="dividend"
                                 />
                             }
                             label={<span style={{ fontSize: '0.9rem' }}>배당주</span>}
@@ -62,9 +73,9 @@ const Search = () => {
                         <FormControlLabel
                             control={
                                 <BlueCheckbox
-                                    checked={state.checkedValue}
+                                    checked={state.theme.value}
                                     onChange={handleChange}
-                                    name="checkedValue"
+                                    name="value"
                                 />
                             }
                             label={<span style={{ fontSize: '0.9rem' }}>가치주</span>}
@@ -72,15 +83,16 @@ const Search = () => {
                         <FormControlLabel
                             control={
                                 <BlueCheckbox
-                                    checked={state.checkedTech}
+                                    checked={state.theme.tech}
                                     onChange={handleChange}
-                                    name="checkedTech"
+                                    name="tech"
                                 />
                             }
                             label={<span style={{ fontSize: '0.9rem' }}>기술주</span>}
                         />
                     </FormGroup>
                 </div>
+                <div></div>
             </div>
         </React.Fragment>
     );

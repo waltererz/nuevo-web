@@ -8,6 +8,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AssignmentForm from '../Forms/AssignmentForm';
 
+// 다이얼로그를 포함하는 회원가입 버튼
+// 버튼을 클릭하면 다이얼로그를 화면에 띄우게 됨
+// 리액트에서는 그냥 아래 메소드를 JSX에서 호출하면 됨
+// 다만 버튼 스크립트는 children으로 전달해주어야 함
 const DialogAssignmentFormForButton = (props) => {
     const { children, styles } = props;
     const [open, setOpen] = React.useState(false);

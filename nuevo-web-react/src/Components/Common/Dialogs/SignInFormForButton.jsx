@@ -8,6 +8,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import SignInForm from '../Forms/SignInForm';
 
+// 다이얼로그를 포함하는 로그인 버튼
+// 사용자가 원하는 버튼을 로그인 버튼으로 활용할 수 있도록 children 변수를 사용함
 const DialogSignInFormForButton = (props) => {
     const { children, styles } = props;
     const [open, setOpen] = React.useState(false);

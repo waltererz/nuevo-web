@@ -16,7 +16,7 @@ import FriendsLeftGrid from '../../Routes/Friends/LeftGrid';
 import ClubsLeftGrid from '../../Routes/Clubs/LeftGrid';
 import AdvisorsLeftGrid from '../../Routes/Advisors/LeftGrid';
 
-import './index.css';
+import '../Styles/layout.css';
 
 const Layout = (props) => {
     const { children } = props;

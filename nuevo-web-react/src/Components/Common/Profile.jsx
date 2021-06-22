@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+// 상단 헤더에서 선택할 수 있는 사용자 프로필 스크립트 내용임
 const Profile = () => {
     const styles = {
         ListItem: {

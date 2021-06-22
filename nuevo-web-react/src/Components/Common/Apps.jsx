@@ -1,5 +1,6 @@
 import React from 'react';
 
+// 상단 헤더에서 선택할 수 있는 전체메뉴 레이어에 포함되는 스크립트
 const Apps = () => {
     return (
         <React.Fragment>
